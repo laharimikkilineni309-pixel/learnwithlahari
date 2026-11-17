@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://learnwithlahari.com/sitemap.xml

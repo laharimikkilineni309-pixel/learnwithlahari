@@ -1,0 +1,32 @@
+name: Build blog articles
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/posts/**'
+      - 'build_posts.py'
+      - '.github/workflows/publish-posts.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate published pages
+        run: python build_posts.py
+      - name: Commit generated pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add articles explore.html sitemap.xml
+          if ! git diff --cached --quiet; then
+            git commit -m "Build blog articles [skip ci]"
+            git push
+          fi

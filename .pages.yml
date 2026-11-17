@@ -1,0 +1,50 @@
+media:
+  input: assets/uploads
+  output: /assets/uploads
+content:
+  - name: posts
+    label: Blog posts
+    type: collection
+    path: content/posts
+    view:
+      fields: [title, category, date, published]
+      primary: title
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Article title
+        type: string
+        required: true
+      - name: slug
+        label: URL slug (lowercase-hyphens)
+        type: string
+        required: true
+      - name: category
+        label: Topic
+        type: select
+        required: true
+        options:
+          - { label: Quality Engineering, value: QA }
+          - { label: Artificial Intelligence, value: AI }
+          - { label: Motherhood, value: Motherhood }
+          - { label: QA to Developer, value: Career Transition }
+          - { label: Coding, value: Coding }
+          - { label: Interview Prep, value: Interview Prep }
+      - name: summary
+        label: Short description
+        type: text
+        required: true
+      - name: date
+        label: Publication date
+        type: date
+        required: true
+      - name: published
+        label: Publish this article?
+        type: boolean
+        default: false
+      - name: body
+        label: Article content
+        type: rich-text
+        required: true
